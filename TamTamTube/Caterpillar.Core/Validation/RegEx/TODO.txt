@@ -1,0 +1,1 @@
+﻿RegEx'ler ile güzel bir validastionengine yaz. Öneğin; new EmailValidator().RequiredValidator().MinmumLengthValidator().Validate("input") gibi

@@ -1,0 +1,895 @@
+﻿
+<!DOCTYPE html>
+<HTML dir='ltr'>
+<head>
+    <meta charset='utf-8' />
+    <meta content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' name='viewport' />
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css' />
+    <title>Tube Mag Responsive Blogger Template | Your Blog Description</title>
+    <meta content='Your Blog Description here!' name='description' />
+    <meta content='Your Keywords here!' name='keywords' />
+    <meta content='Author Name here!' name='Author' />
+    <meta content='general' name='rating' />
+    <meta content='all' name='robots' />
+    <meta content='index, follow' name='robots' />
+    <meta content='1 days' name='revisit-after' />
+    <link href='http://fonts.googleapis.com/css?family=Roboto%3A400&ver=4.0' id='google-font-css' media='all' rel='stylesheet' type='text/css' />
+    <link href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet' type='text/css' />
+    <link type='text/css' rel='stylesheet' href='https://www.blogger.com/static/v1/widgets/3899416659-widget_css_bundle.css' />
+    <link type='text/css' rel='stylesheet' href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=6735056125082646223&zx=ea4a62a3-b9aa-4f4f-a96d-1e55fbdd1fd7' />
+
+    <link href="~/Content/videosite.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        // <![CDATA[
+        $(function() {
+            if($("#bigframe").length>0) {
+
+                var bigvideo = $("#bigframe").attr("src");
+                var videotag = '<iframe src="'+bigvideo+'" id="covervideo" frameborder="0"></iframe>';
+                $(videotag).appendTo("#myvideo");
+                $("#bigframe").remove();
+            }
+            else {
+                $("#myvideo,#post-right").remove();
+            }
+
+        });
+
+
+
+        // ]]>
+    </script>
+    <script type='text/javascript'>
+        //<![CDATA[
+        window.selectnav=function(){return function(p,q){var a,h=function(b){var c;b||(b=window.event);b.target?c=b.target:b.srcElement&&(c=b.srcElement);3===c.nodeType&&(c=c.parentNode);c.value&&(window.location.href=c.value)},k=function(b){b=b.nodeName.toLowerCase();return"ul"===b||"ol"===b},l=function(b){for(var c=1;document.getElementById("selectnav"+c);c++){}return b?"selectnav"+c:"selectnav"+(c-1)},n=function(b){g++;var c=b.children.length,a="",d="",f=g-1;if(c){if(f){for(;f--;){d+=r}d+=" "}for(f=0;f<c;f++){var e=b.children[f].children[0];if("undefined"!==typeof e){var h=e.innerText||e.textContent,i="";j&&(i=-1!==e.className.search(j)||-1!==e.parentElement.className.search(j)?m:"");s&&!i&&(i=e.href===document.URL?m:"");a+='<option value="'+e.href+'" '+i+">"+d+h+"</option>";t&&(e=b.children[f].children[1])&&k(e)&&(a+=n(e))}}1===g&&o&&(a='<option value="">'+o+"</option>"+a);1===g&&(a='<select class="selectnav" id="'+l(!0)+'">'+a+"</select>");g--;return a}};if((a=document.getElementById(p))&&k(a)){document.documentElement.className+=" js";var d=q||{},j=d.activeclass||"active1",s="boolean"===typeof d.autoselect?d.autoselect:!0,t="boolean"===typeof d.nested?d.nested:!0,r=d.indent||"\u2192",o=d.label||"- Navigation -",g=0,m=" selected ";a.insertAdjacentHTML("afterend",n(a));a=document.getElementById(l());a.addEventListener&&a.addEventListener("change",h);a.attachEvent&&a.attachEvent("onchange",h)}}}();(jQuery);
+        //]]></script>
+    <!--Menu To Drop Down Started-->
+    <script type='text/javascript'>
+        //<![CDATA[
+        $(document).ready(function(){
+            selectnav('top', {
+                label: 'Select Here ',
+                nested: true,
+                autoselect: false,
+                indent: '-'
+            });
+        });
+        //]]></script>
+</head>
+<body>
+   
+    <div id='nav-wrapper'>
+        <div class='container'>
+            <div id='beakingnews'>
+                <span class='tulisbreaking'><i class='fa fa-play-circle-o'></i>Headline:</span>
+                <div id='recentpostbreaking'>Loading...</div>
+            </div>
+            <script type='text/javascript'>
+                //<![CDATA[
+                $(document).ready(function () {
+                    var url_blog = 'http://tubemag-themexpose.blogspot.in/', // Replace With your Blog Url
+                        numpostx 	= 20; // Maximum Post
+                    $.ajax({
+                        url: ''+url_blog+'/feeds/posts/default?alt=json-in-script&max-results=' + numpostx + '',
+                        type: 'get',
+                        dataType: "jsonp",
+                        success: function(data) {
+                            var posturl, posttitle, skeleton = '',
+                                entry = data.feed.entry;
+                            if (entry !== undefined) {
+                                skeleton = "<ul>";
+                                for (var i = 0; i < entry.length; i++) {
+                                    for (var j=0; j < entry[i].link.length; j++)
+                                    {
+                                        if (entry[i].link[j].rel == "alternate")
+                                        {
+                                            posturl = entry[i].link[j].href;
+                                            break;
+                                        }
+                                    }
+                                    posttitle = entry[i].title.$t;
+                                    skeleton += '<li><a href="' + posturl + '" target="_blank">' + posttitle + '</a></li>';
+                                }
+                                skeleton += '</ul>';
+                                $('#recentpostbreaking').html(skeleton);
+                                // kode untuk efek pada breaking news
+                                function tick(){
+                                    $('#recentpostbreaking li:first').slideUp( function () { $(this).appendTo($('#recentpostbreaking ul')).slideDown(); });
+                                }
+                                setInterval(function(){ tick () }, 5000);
+                            } else {
+                                $('#recentpostbreaking').html('<span>No result!</span>');
+                            }
+                        },
+                        error: function() {
+                            $('#recentpostbreaking').html('<strong>Error Loading Feed!</strong>');
+                        }
+                    });
+                });
+                //]]>
+            </script>
+            <div class='social-links col-md-6 col-sm-6'>
+                <div class='pull-right'>
+                    <a class='social-icon maincolor1 bordercolor1hover bgcolor1hover' href='#'><i class='fa fa-facebook'></i></a>
+                    <a class='social-icon maincolor1 bordercolor1hover bgcolor1hover' href='#'><i class='fa fa-twitter'></i></a>
+                    <a class='social-icon maincolor1 bordercolor1hover bgcolor1hover' href='#'><i class='fa fa-google-plus'></i></a>
+                    <a class='social-icon maincolor1 bordercolor1hover bgcolor1hover' href='#'><i class='fa fa-youtube'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='header-wrapper'>
+        <div class='container'>
+            <div class='header section' id='header'>
+                <div class='widget Header' data-version='1' id='Header1'>
+                    <div id='header-inner'>
+                        <a href='http://tubemag-themexpose.blogspot.com.tr/' style='display: block'>
+                            <img alt='Tube Mag Responsive Blogger Template' id='Header1_headerimg' src='http://2.bp.blogspot.com/-3d-LLEswR28/VE6KwU4ceLI/AAAAAAAACag/_6TI5iwYxSg/s1600/TUBEMAG.png' style='display: block' />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class='menusearch'>
+                <form action='/search' class='searchform' method='get'>
+                    <input class='searchfield' id='q' name='q' onblur='if(this.value==&#39;&#39;)this.value=this.defaultValue;' onfocus='if(this.value==this.defaultValue)this.value=&#39;&#39;' type='text' value='Search here....' />
+                    <i class='fa fa-search' style='cursor:pointer;vertical-align:top' type='image' value='Go'></i>
+                </form>
+            </div>
+            <div id='top-wrapper'>
+                <div class='container'>
+                    <div id='topbar'>
+                        <ul class='menu-main' id='top'>
+                            <li class='home'><a href='/'>Homepage</a></li>
+                            <li><a href='#'>About Us</a></li>
+                            <li>
+                                <a class='arrow' href='#'>Drop Down</a>
+                                <ul>
+                                    <li><a href='#'>Goggle +</a></li>
+                                    <li class='hr'></li>
+                                    <li><a href='#'>Contact on Facebook</a></li>
+                                    <li class='hr'></li>
+                                    <li><a href='#'>Contact on Twitter</a></li>
+                                </ul>
+                            </li>
+                            <li><a href='#'>Animation</a></li>
+                            <li><a href='#'>Movie</a></li>
+                            <li><a href='#'>Trailer</a></li>
+                            <li>
+                                <a href='http://www.themexpose.com/2014/10/tubemag-responsive-video-blogger.html'>Download</a>
+                            </li>
+                        </ul>
+                        <br class='clearit' />
+                    </div>
+                </div>
+                <div style='clear:both;'></div>
+            </div>
+            <div style='clear:both;'></div>
+        </div>
+    </div><!-- end header-wrapper -->
+    <div class='clear'></div>
+    <div id='item-area'>
+        <div id='myvideo1'>
+            <div class='container'>
+                <div id='myvideo'></div>
+                <div class='post-right section' id='post-right'>
+                    <div class='widget HTML' data-version='1' id='HTML2'>
+                        <div class='widget-content'>
+                            <div class="sample-ad">300 x 250 Ad</div>
+                            <style>
+                                .sample-ad {
+                                    text-align: center;
+                                    color: #aaa;
+                                    width: 300px;
+                                    line-height: 250px;
+                                    background: #272727;
+                                    float: right;
+                                }
+                            </style>
+
+                            <div class="sample-ad1">300 x 200 Ad</div>
+                            <style>
+                                .sample-ad1 {
+                                    text-align: center;
+                                    color: #aaa;
+                                    width: 300px;
+                                    line-height: 213px;
+                                    background: #272727;
+                                    float: right;
+                                    margin-top: 10px;
+                                }
+                            </style>
+                        </div>
+                        <div class='clear'></div>
+                        <span class='widget-item-control'>
+                            <span class='item-control blog-admin'>
+                                <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=HTML&widgetId=HTML2&action=editWidget&sectionId=post-right' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+                                    <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                </a>
+                            </span>
+                        </span>
+                        <div class='clear'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='outer-wrapper'>
+        <div id='wrap2'>
+            <!-- skip links for text browsers -->
+            <span id='skiplinks' style='display:none;'>
+                <a href='#main'>skip to main </a> |
+                <a href='#sidebar'>skip to sidebar</a>
+            </span>
+            <div id='main-wrapper'>
+                <div class='clear'></div>
+                <div class='main section' id='main'>
+                    <div class='widget Blog' data-version='1' id='Blog1'>
+                        <div class='blog-posts hfeed'>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/big-game.html'>Big Game</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/24/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary1442295537178088272'>
+                                        <iframe allowfullscreen="" id="bigframe" frameborder="0" height="281" mozallowfullscreen="" src="//player.vimeo.com/video/36414454" webkitallowfullscreen="" width="500"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_795,h_440/36414454.jpg" height="0" width="0" /><br />
+
+                                        <b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.
+                                    </div>
+                                 
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/big-game.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation' rel='tag'>animation</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/kits-ratings.html'>Kits &amp; Ratings</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary7276172267121783684'>
+                                        <div dir="ltr" style="text-align: left;" trbidi="on">
+                                            <iframe allowfullscreen="" frameborder="0" height="281" id="bigframe" mozallowfullscreen="" src="//player.vimeo.com/video/70002703" webkitallowfullscreen="" width="500"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_795,h_440/70002703.jpg" height="0" width="0" /><br />
+                                            <b>Description: </b>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/kits-ratings.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports' rel='tag'>sports</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/best-points-tennis.html'>ElectroShock -EMA</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary5372253237258323019'>
+                                        <iframe allowfullscreen="" id="bigframe" frameborder="0" height="281" mozallowfullscreen="" src="//player.vimeo.com/video/29193046" webkitallowfullscreen="" width="500"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_795,h_440/29193046.jpg" height="0" width="0" /><br />
+                                        <b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.
+                                    </div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/best-points-tennis.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports' rel='tag'>sports</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/winter-love.html'>Winter Love</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary2573061669821537722'>
+                                        <iframe allowfullscreen="" id="bigframe" frameborder="0" height="281" mozallowfullscreen="" src="//player.vimeo.com/video/14592941" webkitallowfullscreen="" width="500"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_795,h_440/14592941.jpg" height="0" width="0" /><br />
+                                        <b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.
+                                    </div>
+                                     
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/winter-love.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation' rel='tag'>animation</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/disney-frozen.html'>Disney&#39;s FROZEN</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary5258789915103006466'>
+                                        <div dir="ltr" style="text-align: left;" trbidi="on">
+                                            <iframe allowfullscreen="" frameborder="0" height="281" id="bigframe" mozallowfullscreen="" src="//player.vimeo.com/video/42411918" webkitallowfullscreen="" width="500"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_795,h_440/42411918.jpg" height="0" width="0" /><br />
+                                            <b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.
+                                        </div>
+                                    </div>
+                                  
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/disney-frozen.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation' rel='tag'>animation</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/baseball-mlb-14.html'>Baseball MLB 14</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary231152118617733429'><iframe allowfullscreen="" id="bigframe" frameborder="0" height="450" src="//www.youtube.com/embed/-OXttFtAMv0" width="720"></iframe><img src="http://res.cloudinary.com/demo/image/youtube/w_795,h_440,c_fill/-OXttFtAMv0.jpg" height="0" with="0" /> <br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien. </div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/baseball-mlb-14.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports' rel='tag'>sports</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/mercedes-benz-c63.html'>Mercedes Benz C63</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary889087352408909727'><iframe allowfullscreen="" id="bigframe" frameborder="0" height="450" mozallowfullscreen="" src="//player.vimeo.com/video/34592862" webkitallowfullscreen="" width="720"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_360,h_240/34592862.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien. </div>
+                                     
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/mercedes-benz-c63.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/featured-posts' rel='tag'>featured-posts</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports' rel='tag'>sports</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/free-birds-official.html'>Free Birds Official</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary3902220729940941043'><iframe width="720" height="450" id="bigframe" src="//www.youtube.com/embed/gxslnpqFwOs" frameborder="0" allowfullscreen></iframe><img src="http://res.cloudinary.com/demo/image/youtube/w_795,h_440,c_fill/gxslnpqFwOs.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.</div>
+                                   
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/free-birds-official.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation' rel='tag'>animation</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/featured-posts' rel='tag'>featured-posts</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/edge-of-tomorrow.html'>Edge Of Tomorrow</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary1302245044548669722'><iframe width="720" height="450" src="//www.youtube.com/embed/fLe_qO4AE-M" frameborder="0" allowfullscreen></iframe><img src="http://res.cloudinary.com/demo/image/youtube/w_795,h_440,c_fill/fLe_qO4AE-M.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.</div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/edge-of-tomorrow.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/movies' rel='tag'>movies</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/transformers-kreo.html'>Transformers - Kreo</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary7501534956947818775'><iframe allowfullscreen="" frameborder="0" height="450" mozallowfullscreen="" src="//player.vimeo.com/video/25754975" webkitallowfullscreen="" width="720"></iframe><img src="http://res.cloudinary.com/demo/image/vimeo/w_360,h_240/25754975.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien. </div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/transformers-kreo.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation' rel='tag'>animation</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/featured-posts' rel='tag'>featured-posts</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/the-apes-planet.html'>The Apes Planet</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary6123441559232553846'><iframe allowfullscreen="" frameborder="0" height="450" src="//www.youtube.com/embed/_dweN_7vhhk" width="720"></iframe><img src="http://res.cloudinary.com/demo/image/youtube/w_480,h_270,c_fill/_dweN_7vhhk.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien.</div>
+                                   
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/the-apes-planet.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/movies' rel='tag'>movies</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class='post bar hentry'>
+                                <h2 class='post-title entry-title'>
+                                    <a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/world-cup-brazil.html'>World Cup Brazil</a>
+                                </h2>
+                                <div class='postmeta'>
+                                    <span class='author'>
+                                        Rina Chaudhary
+                                    </span>
+                                    <span class='clock'>6/22/2014</span>
+                                </div>
+                                <div class='post-header-line-1'></div>
+                                <div class='post-body entry-content'>
+                                    <div id='summary181242292627064152'><iframe allowfullscreen="" frameborder="0" height="450" src="//www.youtube.com/embed/dfmDl9t_g9s" width="720"></iframe><img src="http://res.cloudinary.com/demo/image/youtube/w_480,h_270,c_fill/dfmDl9t_g9s.jpg" height="0" with="0" /><br /><b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor quam, pretium eu placerat eu, semper et nunc. Nullam ut turpis dictum, luctus mi quis, luctus lorem. Nullam porttitor consectetur nunc in tempor. Cras vitae venenatis sem, at pretium arcu. Nulla hendrerit dui quis metus laoreet, eget blandit arcu cursus. Mauris in libero rutrum, consectetur velit vel, blandit neque. Ut sodales, eros id ornare blandit, nulla erat consequat arcu, ac pretium urna nunc nec sapien. </div>
+                                    
+                                    <div class='readmorecontent'><a href='http://tubemag-themexpose.blogspot.com.tr/2014/06/world-cup-brazil.html'>Read more &#187;</a></div>
+                                    <div style='clear: both;'></div>
+                                </div>
+                                <div class='post-footer'>
+                                    <span class='post-labels'>
+                                        Labels:
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies' rel='tag'>Real Life Movies</a>,
+                                        <a href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports' rel='tag'>sports</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='blog-pager' id='blog-pager'>
+                            <span id='blog-pager-older-link'>
+                                <a class='blog-pager-older-link' href='http://tubemag-themexpose.blogspot.com.tr/search?updated-max=2014-06-22T09:14:00-07:00&amp;max-results=12' id='Blog1_blog-pager-older-link' title='Next Post'>Next Video &#187;</a>
+                            </span>
+                        </div>
+                        <div class='clear'></div>
+                        <div class='blog-feeds'>
+                        </div>
+                    </div>
+                </div>
+                <div id='slide-wrapper'>
+                    <div id='tabber-wrapper'>
+                        <ul class='tab-view'>
+                            <li>
+                                <a href='#tab1'>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#tab2'>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#tab3'>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#tab4'>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#tab5'>
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href='#tab6'>
+                                  
+                                </a>
+                            </li>
+                        </ul><div class='clear'></div>
+                        <div class='tab-wrapper'>
+                            <div class='tabber' id='tab1'>
+                                
+                            </div>
+                            <div class='tabber' id='tab2'>
+                                 
+                            </div>
+                            <div class='tabber' id='tab3'>
+                                
+                            </div>
+                            <div class='tabber' id='tab4'>
+                                 
+                            </div>
+                            <div class='tabber' id='tab5'>
+                                
+                            </div>
+                            <div class='tabber' id='tab6'>
+                                
+                            </div>
+                            <div class='clear'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='sidebar-wrapper'>
+                <div class='bot2 section' id='bot22'>
+                    <div class='widget HTML' data-version='1' id='HTML39'>
+                        <div class='featuredPost2'>
+                             
+                        </div>
+                    </div>
+                </div>
+                <div class='clear'></div>
+                <div class='sidebar section' id='sidebar'>
+                    <div class='widget HTML' data-version='1' id='HTML3'>
+                        <div class='widget-content'>
+                            <img src="https://c1.staticflickr.com/5/4110/4986193535_b7d547103b.jpg" style="
+                                 width 288px;
+                                 height 260px;
+                                 " />
+                        </div>
+                        <div class='clear'></div>
+                        <span class='widget-item-control'>
+                            <span class='item-control blog-admin'>
+                                <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=HTML&widgetId=HTML3&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML3"));' target='configHTML3' title='Edit'>
+                                    <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                </a>
+                            </span>
+                        </span>
+                        <div class='clear'></div>
+                    </div><div class='widget HTML' data-version='1' id='HTML1'>
+                        <h2 class='title'>Most Popular</h2>
+                        <div class='widget-content'>
+                            <iframe src="http://player.vimeo.com/video/50522981?title=0&amp;byline=0&amp;portrait=0&amp;color=ba0d16" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="fitvid92773" width="288"></iframe>
+                        </div>
+                        <div class='clear'></div>
+                        <span class='widget-item-control'>
+                            <span class='item-control blog-admin'>
+                                <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=HTML&widgetId=HTML1&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Edit'>
+                                    <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                </a>
+                            </span>
+                        </span>
+                        <div class='clear'></div>
+                    </div><div class='widget Label' data-version='1' id='Label1'>
+                        <h2>Labels</h2>
+                        <div class='widget-content list-label-widget-content'>
+                            <ul>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation'>animation</a>
+                                </li>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/Comedy'>Comedy</a>
+                                </li>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/featured-posts'>featured-posts</a>
+                                </li>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/movies'>movies</a>
+                                </li>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies'>Real Life Movies</a>
+                                </li>
+                                <li>
+                                    <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports'>sports</a>
+                                </li>
+                            </ul>
+                            <div class='clear'></div>
+                            <span class='widget-item-control'>
+                                <span class='item-control blog-admin'>
+                                    <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=Label&widgetId=Label1&action=editWidget&sectionId=sidebar' onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target='configLabel1' title='Edit'>
+                                        <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                    </a>
+                                </span>
+                            </span>
+                            <div class='clear'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- spacer for skins that want sidebar and main to be the same height-->
+            <div class='clear'>&#160;</div>
+        </div>
+    </div>
+    <div class='picfooter'>
+        <div class='container'>
+            <div id='footer-wrapper'>
+                <div id='footer1-wrapper'>
+                    <div class='footer section' id='footer1'>
+                        <div class='widget Label' data-version='1' id='Label2'>
+                            <h2>Labels</h2>
+                            <div class='widget-content list-label-widget-content'>
+                                <ul>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/animation'>animation</a>
+                                    </li>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/Comedy'>Comedy</a>
+                                    </li>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/featured-posts'>featured-posts</a>
+                                    </li>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/movies'>movies</a>
+                                    </li>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/Real%20Life%20Movies'>Real Life Movies</a>
+                                    </li>
+                                    <li>
+                                        <a dir='ltr' href='http://tubemag-themexpose.blogspot.com.tr/search/label/sports'>sports</a>
+                                    </li>
+                                </ul>
+                                <div class='clear'></div>
+                                <span class='widget-item-control'>
+                                    <span class='item-control blog-admin'>
+                                        <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=Label&widgetId=Label2&action=editWidget&sectionId=footer1' onclick='return _WidgetManager._PopupConfig(document.getElementById("Label2"));' target='configLabel2' title='Edit'>
+                                            <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                        </a>
+                                    </span>
+                                </span>
+                                <div class='clear'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id='footer2-wrapper'>
+                    <div class='footer section' id='footer2'>
+                        <div class='widget HTML' data-version='1' id='HTML6'>
+                            <h2 class='title'>Featured Video</h2>
+                            <div class='widget-content'>
+                                <iframe src="http://player.vimeo.com/video/50522981?title=0&amp;byline=0&amp;portrait=0&amp;color=ba0d16" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="fitvid92773"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id='footer3-wrapper'>
+                    <div class='footer section' id='footer3'>
+                        <div class='widget Text' data-version='1' id='Text1'>
+                            <h2 class='title'>About Tube Mag</h2>
+                            <div class='widget-content'>
+                                <span style="color: #fff; font-family: Roboto, sans-serif; font-size: 13px; line-height: 22.1000003814697px;">Tubemag is an ultimate Video Blogger Theme. We put in Tubemag the best practices of Design, Code, SEO and UI/UX design. There is no limitation to what you can build with this theme. Its support youtube, vimeo and dailymotion.</span>
+                            </div>
+                            <div class='clear'></div>
+                            <span class='widget-item-control'>
+                                <span class='item-control blog-admin'>
+                                    <a class='quickedit' href='//www.blogger.com/rearrange?blogID=6735056125082646223&widgetType=Text&widgetId=Text1&action=editWidget&sectionId=footer3' onclick='return _WidgetManager._PopupConfig(document.getElementById("Text1"));' target='configText1' title='Edit'>
+                                        <img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18' />
+                                    </a>
+                                </span>
+                            </span>
+                            <div class='clear'></div>
+                        </div>
+                    </div>
+                </div>
+                <div style='clear:both;'></div>
+            </div>
+        </div>
+    </div>
+    <div class='creditwrap'>
+        <div class='container'>
+            <div class='credit'>
+                <div style='float:left;text-align:left;'>
+                    Copyright &#169; 2013. <a class='sitename' href='http://tubemag-themexpose.blogspot.com.tr/' title='Tube Mag Responsive Blogger Template'>Tube Mag Responsive Blogger Template</a> - All Rights Reserved
+                </div>
+                <div style='float:right;text-align:right;'>
+                    Template Created by <a href='http://www.themexpose.com/' id='mycontent'>ThemeXpose</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- end outer-wrapper -->
+    <div class='clear'></div>
+    
+    <script type='text/javascript'>
+        //<![CDATA[
+        jQuery.cookie = function (key, value, options) {
+
+            // key and at least value given, set cookie...
+            if (arguments.length > 1 && String(value) !== "[object Object]") {
+                options = jQuery.extend({}, options);
+
+                if (value === null || value === undefined) {
+                    options.expires = -1;
+                }
+
+                if (typeof options.expires === 'number') {
+                    var days = options.expires, t = options.expires = new Date();
+                    t.setDate(t.getDate() + days);
+                }
+
+                value = String(value);
+
+                return (document.cookie = [
+                    encodeURIComponent(key), '=',
+                    options.raw ? value : encodeURIComponent(value),
+                    options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+                    options.path ? '; path=' + options.path : '',
+                    options.domain ? '; domain=' + options.domain : '',
+                    options.secure ? '; secure' : ''
+                ].join(''));
+            }
+
+            // key and possibly options given, get cookie...
+            options = value || {};
+            var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+            return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+        };
+        //]]>
+    </script>
+    <script type='text/javascript'>
+        //<![CDATA[
+        jQuery(document).ready(function() {
+
+            //Set Default State of each portfolio piece
+            $(".paging").show();
+            $(".paging a:first").addClass("active");
+
+            //Get size of images, how many there are, then determin the size of the image reel.
+            var imageWidth = $(".sompret").width();
+            var imageSum = $(".image_reel img").size();
+            var imageReelWidth = imageWidth * imageSum;
+
+            //Adjust the image reel to its new size
+            $(".image_reel").css({'width' : imageReelWidth});
+
+            //Paging + Slider Function
+            rotate = function(){
+                var triggerID = $active.attr("rel") - 1; //Get number of times to slide
+                var image_reelPosition = triggerID * imageWidth; //Determines the distance the image reel needs to slide
+
+                $(".paging a").removeClass('active'); //Remove all active class
+                $active.addClass('active'); //Add active class (the $active is declared in the rotateSwitch function)
+
+                $(".crott").stop(true,true).slideUp('slow');
+
+                $(".crott").eq( $('.paging a.active').attr("rel") - 1 ).slideDown("slow");
+
+                //Slider Animation
+                $(".image_reel").animate({
+                    left: -image_reelPosition
+                }, 500 );
+
+
+            };
+
+            //Rotation + Timing Event
+            rotateSwitch = function(){
+                $(".crott").eq( $('.paging a.active').attr("rel") - 1 ).slideDown("slow");
+                play = setInterval(function(){ //Set timer - this will repeat itself every 3 seconds
+                    $active = $('.paging a.active').next();
+                    if ( $active.length === 0) { //If paging reaches the end...
+                        $active = $('.paging a:first'); //go back to first
+                    }
+                    rotate(); //Trigger the paging and slider function
+                }, 10000); //Timer speed in milliseconds (3 seconds)
+
+            };
+
+            rotateSwitch(); //Run function on launch
+
+            //On Click
+            $(".paging a").click(function() {
+                $active = $(this); //Activate the clicked paging
+                //Reset Timer
+                clearInterval(play); //Stop the rotation
+                rotate(); //Trigger rotation immediately
+                rotateSwitch(); // Resume rotation
+                return false; //Prevent browser jump to link anchor
+            });
+
+        });
+
+        //]]>
+    </script>
+    <script type='text/javascript'>
+
+        $(function() {
+            $('#comments p').find('a').remove();
+        });
+    </script>
+</body>
+</HTML>
